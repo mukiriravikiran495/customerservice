@@ -19,7 +19,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired private JwtUtil jwtUtil;
     
-    private static final String DUMMY_TOKEN = "DUMMY-TOKEN";
+//    private static final String DUMMY_TOKEN = "DUMMY-TOKEN";
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
@@ -32,13 +32,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String jwt = authHeader.substring(7);
             
          // ✅ Bypass authentication for dummy token
-            if (DUMMY_TOKEN.equals(jwt)) {
-                UsernamePasswordAuthenticationToken dummyAuth =
-                        new UsernamePasswordAuthenticationToken("testuser", null, List.of());
-                SecurityContextHolder.getContext().setAuthentication(dummyAuth);
-                filterChain.doFilter(request, response);
-                return;
-            }
+//            if (DUMMY_TOKEN.equals(jwt)) {
+//                UsernamePasswordAuthenticationToken dummyAuth =
+//                        new UsernamePasswordAuthenticationToken("testuser", null, List.of());
+//                SecurityContextHolder.getContext().setAuthentication(dummyAuth);
+//                filterChain.doFilter(request, response);
+//                return;
+//            }
             
             String username = jwtUtil.extractUsername(jwt);
 

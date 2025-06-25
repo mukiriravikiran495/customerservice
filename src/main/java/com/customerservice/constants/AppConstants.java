@@ -11,5 +11,8 @@ public class AppConstants {
 	public static final String INVALID_REQUEST = "INVALID_REQUEST";
 	public static final String OTP_VERIFICATION_IS_SUCCESSFULL = "OTP_VERIFICATION_IS_SUCCESSFULL";
 	public static final String TOKEN_GENERATED_SUCCESSFULLY = "TOKEN_GENERATED_SUCCESSFULLY";
+	public static final String Cancelled_Succesfully = "Cancelled_Succesfully";
+	public static final String CANCEL_FAILED = "CANCEL_FAILED";
+	public static final String SUCCESS = "SUCCESS";
 
 }

@@ -34,7 +34,7 @@ public class MyBookingsDTO {
 	private String UPDATED_AT;  
 	private String UPDATED_BY;
 	
-	private CustomerDetails customerDetails;
+	private CustomerDetailsDTO customerDetails;
 	
 //	private VendorDetails vendorDetails;
 
@@ -222,11 +222,12 @@ public class MyBookingsDTO {
 		UPDATED_BY = uPDATED_BY;
 	}
 
-	public CustomerDetails getCustomerDetails() {
+	
+	public CustomerDetailsDTO getCustomerDetails() {
 		return customerDetails;
 	}
 
-	public void setCustomerDetails(CustomerDetails customerDetails) {
+	public void setCustomerDetails(CustomerDetailsDTO customerDetails) {
 		this.customerDetails = customerDetails;
 	}
 
@@ -253,7 +254,7 @@ public class MyBookingsDTO {
 			BigDecimal eSTIMATED_WEIGHT, BigDecimal eSTIMATED_COST, BigDecimal dISCOUNT_AMOUNT, BigDecimal fINAL_COST,
 			String pAYMENT_STATUS, String pAYMENT_MODE, String tRANSACTION_ID, String bOOKING_STATUS,
 			String vEHICLE_NUMBER, String tRACKING_URL, String oTP_FOR_DELIVERY, String cREATED_AT, String cREATED_BY,
-			String uPDATED_AT, String uPDATED_BY, CustomerDetails customerDetails) {
+			String uPDATED_AT, String uPDATED_BY, CustomerDetailsDTO customerDetails) {
 		super();
 		this.bookingId = bookingId;
 		this.status = status;
@@ -281,5 +282,6 @@ public class MyBookingsDTO {
 		this.customerDetails = customerDetails;
 	}
 
+	
 	
 }

@@ -3,6 +3,7 @@ package com.customerservice.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
@@ -41,9 +42,9 @@ public class MyBookings implements Serializable{
 	private String VEHICLE_NUMBER; 
 	private String TRACKING_URL;
 	private String OTP_FOR_DELIVERY;  
-	private String CREATED_AT;  
+	private Timestamp CREATED_AT;  
 	private String CREATED_BY; 
-	private String UPDATED_AT;  
+	private Timestamp UPDATED_AT;  
 	private String UPDATED_BY;
 	
 	@ManyToOne
@@ -246,20 +247,12 @@ public class MyBookings implements Serializable{
 		DELIVERY_DATE = dELIVERY_DATE;
 	}
 
-	public String getCREATED_AT() {
+	public Timestamp getCREATED_AT() {
 		return CREATED_AT;
 	}
 
-	public void setCREATED_AT(String cREATED_AT) {
+	public void setCREATED_AT(Timestamp cREATED_AT) {
 		CREATED_AT = cREATED_AT;
-	}
-
-	public String getUPDATED_AT() {
-		return UPDATED_AT;
-	}
-
-	public void setUPDATED_AT(String uPDATED_AT) {
-		UPDATED_AT = uPDATED_AT;
 	}
 
 	@Override
@@ -276,12 +269,21 @@ public class MyBookings implements Serializable{
 				+ ", vendorDetails=" + vendorDetails + "]";
 	}
 
+	public Timestamp getUPDATED_AT() {
+		return UPDATED_AT;
+	}
+
+	public void setUPDATED_AT(Timestamp uPDATED_AT) {
+		UPDATED_AT = uPDATED_AT;
+	}
+
 	public MyBookings(long bookingId, String status, LocalDateTime bOOKING_DATE, String sCHEDULED_DATE,
 			String pICKUP_TIME_SLOT, String dELIVERY_DATE, String sERVICE_TYPE, BigInteger iTEM_COUNT,
 			BigDecimal eSTIMATED_WEIGHT, BigDecimal eSTIMATED_COST, BigDecimal dISCOUNT_AMOUNT, BigDecimal fINAL_COST,
 			String pAYMENT_STATUS, String pAYMENT_MODE, String tRANSACTION_ID, String bOOKING_STATUS,
-			String vEHICLE_NUMBER, String tRACKING_URL, String oTP_FOR_DELIVERY, String cREATED_AT, String cREATED_BY,
-			String uPDATED_AT, String uPDATED_BY, CustomerDetails customerDetails, VendorDetails vendorDetails) {
+			String vEHICLE_NUMBER, String tRACKING_URL, String oTP_FOR_DELIVERY, Timestamp cREATED_AT,
+			String cREATED_BY, Timestamp uPDATED_AT, String uPDATED_BY, CustomerDetails customerDetails,
+			VendorDetails vendorDetails) {
 		super();
 		this.bookingId = bookingId;
 		this.status = status;
@@ -309,7 +311,7 @@ public class MyBookings implements Serializable{
 		this.customerDetails = customerDetails;
 		this.vendorDetails = vendorDetails;
 	}
-	
+
 	
 
 	

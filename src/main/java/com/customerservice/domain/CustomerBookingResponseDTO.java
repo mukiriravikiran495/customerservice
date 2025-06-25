@@ -35,7 +35,7 @@ public class CustomerBookingResponseDTO {
 	private String UPDATED_AT;  
 	private String UPDATED_BY;
 	
-	private CustomerDetails customerDetails;
+	private CustomerDetailsDTO customerDetails;
 	
 	private StatusHandler statusHandler;
 	
@@ -232,14 +232,13 @@ public class CustomerBookingResponseDTO {
 		UPDATED_BY = uPDATED_BY;
 	}
 
-	public CustomerDetails getCustomerDetails() {
+	public CustomerDetailsDTO getCustomerDetails() {
 		return customerDetails;
 	}
 
-	public void setCustomerDetails(CustomerDetails customerDetails) {
+	public void setCustomerDetails(CustomerDetailsDTO customerDetails) {
 		this.customerDetails = customerDetails;
 	}
 
-	
 
 }

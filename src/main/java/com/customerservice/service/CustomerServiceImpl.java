@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.customerservice.constants.AppConstants;
+import com.customerservice.domain.CancelResponseDTO;
 import com.customerservice.domain.CustomerBookingResponseDTO;
 import com.customerservice.domain.CustomerDetailsDTO;
 import com.customerservice.domain.CustomerResponse;
@@ -40,29 +42,40 @@ public class CustomerServiceImpl implements CustomerService{
 	public CustomerResponse createCustomer(CustomerDetailsDTO customerDetailsDTO, CustomerResponse response,
 			StatusHandler statusHandler) {
 		System.out.println(customerDetailsDTO.getCustId());
-		Optional<CustomerDetails> optional = repository.findByCustId(customerDetailsDTO.getCustId());
-		CustomerDetails custDetails = optional.get();
-		custDetails.setC_firstName(customerDetailsDTO.getC_firstName());
+		CustomerDetails custDetails = repository.findByCustId(customerDetailsDTO.getCustId());
+		
+		custDetails.setcFirstname(customerDetailsDTO.getcFirstname());
 		repository.save(custDetails);
 		statusHandler.setMessage("Inserted ..!!");
 		response.setStatusHandler(statusHandler);
 		return response;
 	}
-	
-	public List<CustomerBookingResponseDTO> getBookingsByCustomerId(Long custId) {
-        List<MyBookings> bookings = custRepository.findByCustomerDetails_CustId(custId);
-        return customerMapper.toCustomerBookingDTOs(bookings);
-    }
 
 	@Override
-	public CustomerBookingResponseDTO getBookingsByBookingId(Long custId, Long bookingId, StatusHandler statusHandler,
-			CustomerBookingResponseDTO customerBookingResponse) {
-		logger.info("START : Get Bookings By ID Service : "+custId+" "+bookingId);
-		MyBookings bookings = repository.findByBookingAndCustomer(custId, bookingId);
+	public CustomerResponse getCustomerDetails(Long custId, CustomerResponse response, StatusHandler statusHandler) {
+		logger.info("Start : get customer details service : "+custId);
+		try {
+			CustomerDetails details = repository.findByCustId(custId);
+			if( null == details ) {
+				throw new RuntimeException("CustId you are passing doesn't exists : "+custId);
+			}
+			CustomerDetailsDTO cust = customerMapper.toDTO(details);
+			response.setDetailsDTO(cust);
+		}catch(RuntimeException ex) {
+			statusHandler.setErrorCode("400");
+			statusHandler.setErrorMessage(ex.getMessage());
+			response.setStatusHandler(statusHandler);
+		}catch(Exception ex) {
+			statusHandler.setErrorCode("500");
+			statusHandler.setErrorMessage(ex.getMessage());
+			response.setStatusHandler(statusHandler);
+		}
 		
-		logger.info("END : Get Bookings By ID Service : "+custId+" "+bookingId);
-		return customerMapper.toCustomerBookingDTO(bookings);
+		
+		logger.info("End : get customer details service : "+custId);
+		return response;
 	}
-
+	
+	
 
 }

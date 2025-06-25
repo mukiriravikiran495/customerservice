@@ -18,30 +18,35 @@ public class JwtUtil {
     
 
     
-//    public String generateToken(String username) {
-//        Key key = Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
-//        return Jwts.builder()
-//            .setSubject(username)
-//            .setIssuedAt(new Date())
-//            .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30)) // 30 min
-//            .signWith(key)
-//            .compact();
-//    }
-//
-//    public String generateTokenId() {
-//    	Key key = Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
-//
-//        return Jwts.builder()
-//                .setSubject("default-user")
-//                .setIssuedAt(new Date())
-//                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30)) // 30 mins
-//                .signWith(key, SignatureAlgorithm.HS256)
-//                .compact();
-//    }
+    public String generateToken(String username) {
+        Key key = Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
+        return Jwts.builder()
+            .setSubject(username)
+            .setIssuedAt(new Date())
+            .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30)) // 30 min
+            .signWith(key)
+            .compact();
+    }
+
+    public String generateTokenId() {
+    	Key key = Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
+
+        return Jwts.builder()
+                .setSubject("default-user")
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30)) // 30 mins
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact();
+    }
     
 
     public boolean validateToken(String token, String username) {
+    	System.out.println("Validation : start");
+    	System.out.println("Token : "+token);
+    	System.out.println("Username : "+username);
+    	System.out.println("Validation End : ");
         return extractUsername(token).equals(username) && !isTokenExpired(token);
+       
     }
 
     

@@ -6,6 +6,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import com.customerservice.domain.CustomerBookingResponseDTO;
+import com.customerservice.domain.CustomerDetailsDTO;
+import com.customerservice.entity.CustomerDetails;
 import com.customerservice.entity.MyBookings;
 
 
@@ -18,5 +20,6 @@ public interface CustomerBookingsMapper {
 	CustomerBookingResponseDTO toCustomerBookingDTO(MyBookings booking);
 	@Mapping(source = "bookingId", target = "bookingId")
 	public List<CustomerBookingResponseDTO> toCustomerBookingDTOs(List<MyBookings> bookings);
+	CustomerDetailsDTO toDTO(CustomerDetails details);
 	
 }
