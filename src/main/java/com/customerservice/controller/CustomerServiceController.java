@@ -2,6 +2,7 @@ package com.customerservice.controller;
 
 import java.lang.invoke.MethodHandles;
 import java.util.Date;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,7 +57,22 @@ public class CustomerServiceController {
 		logger.info("START : CREATE CUSTOMER Controller : "+ customerDetailsDTO);
 		CustomerResponse response = new CustomerResponse();
 		StatusHandler statusHandler = new StatusHandler();
-		response = service.createCustomer(customerDetailsDTO, response, statusHandler);
+		try {
+			Optional.ofNullable(customerDetailsDTO).orElseThrow(() -> new RuntimeException(AppConstants.INVALID_REQUEST));
+			response = service.createCustomer(customerDetailsDTO, response, statusHandler);
+			statusHandler.setStatusCode("200");
+			statusHandler.setMessage(AppConstants.SUCCESS);
+			response.setStatusHandler(statusHandler);
+		}catch(RuntimeException ex){
+			statusHandler.setStatusCode("400");
+			statusHandler.setMessage(ex.getMessage());
+			response.setStatusHandler(statusHandler);
+		}catch(Exception ex){
+			statusHandler.setStatusCode("500");
+			statusHandler.setMessage(ex.getMessage());
+			response.setStatusHandler(statusHandler);
+		}
+		
 		ResponseEntity<CustomerResponse> cust = new ResponseEntity<>(response, HttpStatus.OK);
 		logger.info("END : Create Customer Controller : "+response);
 		return cust;
@@ -92,6 +108,32 @@ public class CustomerServiceController {
 		return cust;
 	}
 	
+	@PostMapping( value = "/updateCustomer")
+	public ResponseEntity<CustomerResponse> updateCustomer(@RequestBody CustomerDetailsDTO customerDetailsDTO){
+		logger.info("START : Update CUSTOMER Controller : "+ customerDetailsDTO);
+		CustomerResponse response = new CustomerResponse();
+		StatusHandler statusHandler = new StatusHandler();
+		
+		try {
+			Optional.ofNullable(customerDetailsDTO).orElseThrow(() -> new RuntimeException(AppConstants.INVALID_REQUEST));
+			response = service.updateCustomer(customerDetailsDTO, response, statusHandler);
+			statusHandler.setStatusCode("200");
+			statusHandler.setMessage(AppConstants.SUCCESS);
+			response.setStatusHandler(statusHandler);
+		}catch(RuntimeException ex){
+			statusHandler.setStatusCode("400");
+			statusHandler.setMessage(ex.getMessage());
+			response.setStatusHandler(statusHandler);
+		}catch(Exception ex){
+			statusHandler.setStatusCode("500");
+			statusHandler.setMessage(ex.getMessage());
+			response.setStatusHandler(statusHandler);
+		}
+		
+		ResponseEntity<CustomerResponse> cust = new ResponseEntity<>(response, HttpStatus.OK);
+		logger.info("END : Update Customer Controller : "+response);
+		return cust;
+	}
 	
 }
 

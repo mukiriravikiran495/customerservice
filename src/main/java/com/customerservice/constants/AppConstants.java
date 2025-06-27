@@ -14,5 +14,7 @@ public class AppConstants {
 	public static final String Cancelled_Succesfully = "Cancelled_Succesfully";
 	public static final String CANCEL_FAILED = "CANCEL_FAILED";
 	public static final String SUCCESS = "SUCCESS";
+	public static final String CUSTOMER_DETAILS_NOT_SAVED = "CUSTOMER_DETAILS_NOT_SAVED";
+	public static final String CUSTID_DOES_NOT_EXISTS = "CUSTID_DOES_NOT_EXISTS";
 
 }

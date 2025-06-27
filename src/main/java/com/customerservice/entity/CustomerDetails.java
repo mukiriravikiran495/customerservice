@@ -2,6 +2,7 @@ package com.customerservice.entity;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -24,7 +25,7 @@ public class CustomerDetails implements Serializable{
     
 	@Id
 	@Column( name = "custId")
-	private long custId;
+	private Long custId;
     private String cFirstname;
 	private String cLastname;
 	private String cMobile;
@@ -35,15 +36,30 @@ public class CustomerDetails implements Serializable{
 	private String cZipcode;
 	private Double cPickupLattitude;
 	private Double cPickupLongitude;
+	private LocalDateTime createdAt = LocalDateTime.now();
+    private String createdBy; 
 	
-	public long getCustId() {
-		return custId;
+	
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
 	}
-	public void setCustId(long custId) {
-		this.custId = custId;
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+	public String getCreatedBy() {
+		return createdBy;
+	}
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
 	}
 	public String getcFirstname() {
 		return cFirstname;
+	}
+	public Long getCustId() {
+		return custId;
+	}
+	public void setCustId(Long custId) {
+		this.custId = custId;
 	}
 	public void setcFirstname(String cFirstname) {
 		this.cFirstname = cFirstname;

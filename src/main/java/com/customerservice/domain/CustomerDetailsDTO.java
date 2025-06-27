@@ -1,10 +1,10 @@
 package com.customerservice.domain;
 
-
+import java.time.LocalDateTime;
 
 public class CustomerDetailsDTO {
 
-	private long custId;
+	private Long custId;
     private String cFirstname;
 	private String cLastname;
 	private String cMobile;
@@ -15,7 +15,8 @@ public class CustomerDetailsDTO {
 	private String cZipcode;
 	private Double cPickupLattitude;
 	private Double cPickupLongitude;
-	
+	private LocalDateTime createdAt = LocalDateTime.now();
+    private String createdBy;
 	
 	@Override
 	public String toString() {
@@ -23,6 +24,26 @@ public class CustomerDetailsDTO {
 				+ ", cMobile=" + cMobile + ", cEmail=" + cEmail + ", cAddress1=" + cAddress1 + ", cCity=" + cCity
 				+ ", cState=" + cState + ", cZipcode=" + cZipcode + ", cPickupLattitude=" + cPickupLattitude
 				+ ", cPickupLongitude=" + cPickupLongitude + "]";
+	}
+
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
 	}
 
 
@@ -46,12 +67,12 @@ public class CustomerDetailsDTO {
 	}
 
 
-	public long getCustId() {
+	public Long getCustId() {
 		return custId;
 	}
 
 
-	public void setCustId(long custId) {
+	public void setCustId(Long custId) {
 		this.custId = custId;
 	}
 

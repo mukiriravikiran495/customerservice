@@ -13,6 +13,9 @@ public interface CustomerService {
 	CustomerResponse createCustomer(CustomerDetailsDTO customerDetailsDTO, CustomerResponse response, StatusHandler statusHandler);
 
 	CustomerResponse getCustomerDetails(Long custId, CustomerResponse response, StatusHandler statusHandler);
+
+	CustomerResponse updateCustomer(CustomerDetailsDTO customerDetailsDTO, CustomerResponse response,
+			StatusHandler statusHandler);
 	
 
 }

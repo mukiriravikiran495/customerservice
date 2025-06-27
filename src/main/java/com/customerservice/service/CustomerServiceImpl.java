@@ -41,13 +41,26 @@ public class CustomerServiceImpl implements CustomerService{
 	@Override
 	public CustomerResponse createCustomer(CustomerDetailsDTO customerDetailsDTO, CustomerResponse response,
 			StatusHandler statusHandler) {
-		System.out.println(customerDetailsDTO.getCustId());
-		CustomerDetails custDetails = repository.findByCustId(customerDetailsDTO.getCustId());
-		
-		custDetails.setcFirstname(customerDetailsDTO.getcFirstname());
-		repository.save(custDetails);
-		statusHandler.setMessage("Inserted ..!!");
-		response.setStatusHandler(statusHandler);
+		logger.info("Start : create customer service : ");
+		try {
+			System.out.println(customerDetailsDTO.getCustId());
+			CustomerDetails details = new CustomerDetails();
+			details.setCustId(customerDetailsDTO.getCustId());
+			details.setcMobile(customerDetailsDTO.getcMobile());
+			
+			CustomerDetails saved =  repository.save(details);
+			Optional.ofNullable(saved).orElseThrow(() -> new RuntimeException(AppConstants.CUSTOMER_DETAILS_NOT_SAVED));
+			CustomerDetailsDTO newDto = customerMapper.toDTO(details);
+			response.setDetailsDTO(newDto);
+			statusHandler.setStatusCode("200");
+			statusHandler.setMessage(AppConstants.SUCCESS);
+			response.setStatusHandler(statusHandler);
+		}catch(Exception ex){
+			statusHandler.setStatusCode("500");
+			statusHandler.setMessage(ex.getMessage());
+			response.setStatusHandler(statusHandler);
+		}
+		logger.info("End : create customer service : ");
 		return response;
 	}
 
@@ -75,6 +88,41 @@ public class CustomerServiceImpl implements CustomerService{
 		logger.info("End : get customer details service : "+custId);
 		return response;
 	}
+
+	@Override
+	public CustomerResponse updateCustomer(CustomerDetailsDTO customerDetailsDTO, CustomerResponse response,
+			StatusHandler statusHandler) {
+		logger.info("Start : update customer service : ");
+		
+		CustomerDetails custDetails =  repository.findByCustId(customerDetailsDTO.getCustId());
+		Optional.ofNullable(custDetails).orElseThrow(() -> new RuntimeException(AppConstants.CUSTID_DOES_NOT_EXISTS));
+		custDetails.setcAddress1(customerDetailsDTO.getcAddress1());
+		custDetails.setcCity(customerDetailsDTO.getcCity());
+		custDetails.setcFirstname(customerDetailsDTO.getcFirstname());
+		custDetails.setcState(customerDetailsDTO.getcState());
+		custDetails.setcZipcode(customerDetailsDTO.getcZipcode());
+		custDetails.setcPickupLattitude(customerDetailsDTO.getcPickupLattitude());
+		custDetails.setcPickupLongitude(customerDetailsDTO.getcPickupLongitude());
+		CustomerDetails savedDetails = repository.save(custDetails);
+		Optional.ofNullable(savedDetails).orElseThrow(() -> new RuntimeException(AppConstants.CUSTOMER_DETAILS_NOT_SAVED));
+		CustomerDetailsDTO newDto = customerMapper.toDTO(savedDetails);
+		response.setDetailsDTO(newDto);
+		logger.info("End : update customer service : ");
+		return response;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 
