@@ -2,6 +2,8 @@ package com.customerservice.domain;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class CustomerDetailsDTO {
 
 	private Long custId;
@@ -15,8 +17,14 @@ public class CustomerDetailsDTO {
 	private String cZipcode;
 	private Double cPickupLattitude;
 	private Double cPickupLongitude;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MMM-yyyy HH:mm:ss.SSS")
 	private LocalDateTime createdAt = LocalDateTime.now();
-    private String createdBy;
+    private long createdBy;
+    
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MMM-yyyy HH:mm:ss.SSS")
+	private LocalDateTime updatedAt = LocalDateTime.now();
+    private long updatedBy;
+    
 	
 	@Override
 	public String toString() {
@@ -37,12 +45,12 @@ public class CustomerDetailsDTO {
 	}
 
 
-	public String getCreatedBy() {
+	public long getCreatedBy() {
 		return createdBy;
 	}
 
 
-	public void setCreatedBy(String createdBy) {
+	public void setCreatedBy(long createdBy) {
 		this.createdBy = createdBy;
 	}
 

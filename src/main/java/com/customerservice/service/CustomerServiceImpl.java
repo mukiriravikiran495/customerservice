@@ -47,9 +47,10 @@ public class CustomerServiceImpl implements CustomerService{
 			CustomerDetails details = new CustomerDetails();
 			details.setCustId(customerDetailsDTO.getCustId());
 			details.setcMobile(customerDetailsDTO.getcMobile());
-			
+			details.setCreatedBy(customerDetailsDTO.getCustId());
 			CustomerDetails saved =  repository.save(details);
 			Optional.ofNullable(saved).orElseThrow(() -> new RuntimeException(AppConstants.CUSTOMER_DETAILS_NOT_SAVED));
+			
 			CustomerDetailsDTO newDto = customerMapper.toDTO(details);
 			response.setDetailsDTO(newDto);
 			statusHandler.setStatusCode("200");
