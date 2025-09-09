@@ -21,10 +21,13 @@ import com.customerservice.constants.AppConstants;
 import com.customerservice.domain.CustomerDetailsDTO;
 import com.customerservice.domain.CustomerResponse;
 import com.customerservice.domain.TokenID;
+import com.customerservice.domain.TokenResponse;
 import com.customerservice.exceptions.InvalidRequestException;
 import com.customerservice.exceptions.StatusHandler;
 import com.customerservice.service.CustomerService;
 import com.customerservice.utils.JwtUtil;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping( path = "/v1/api/customer")
@@ -53,13 +56,13 @@ public class CustomerServiceController {
 	}
 	
 	@PostMapping( value = "/create")
-	public ResponseEntity<CustomerResponse> createCustomer(@RequestBody CustomerDetailsDTO customerDetailsDTO){
+	public ResponseEntity<CustomerResponse> createCustomer(@RequestBody CustomerDetailsDTO customerDetailsDTO, HttpServletRequest request){
 		logger.info("START : CREATE CUSTOMER Controller : "+ customerDetailsDTO);
 		CustomerResponse response = new CustomerResponse();
 		StatusHandler statusHandler = new StatusHandler();
 		try {
 			Optional.ofNullable(customerDetailsDTO).orElseThrow(() -> new RuntimeException(AppConstants.INVALID_REQUEST));
-			response = service.createCustomer(customerDetailsDTO, response, statusHandler);
+			response = service.createCustomer(customerDetailsDTO, request, response, statusHandler);
 			statusHandler.setStatusCode("200");
 			statusHandler.setMessage(AppConstants.SUCCESS);
 			response.setStatusHandler(statusHandler);
@@ -79,9 +82,10 @@ public class CustomerServiceController {
 	}
 	
 	@GetMapping( value = "/get/{custId}")
-	public ResponseEntity<CustomerResponse> getCustomerDetails(@PathVariable Long custId, @RequestHeader HttpHeaders headers){
+	public ResponseEntity<CustomerResponse> getCustomerDetails(@PathVariable Long custId, @RequestHeader("Authorization") String accessToken){
 		logger.info("Start : get customer details controller : "+custId);
-		System.out.println("heanders : "+headers);
+		String token = accessToken.replace("Bearer ", "");
+		System.out.println(token);
 		StatusHandler statusHandler = new StatusHandler();
 		CustomerResponse response = new CustomerResponse();
 		System.out.println("custId : "+custId);
@@ -89,7 +93,7 @@ public class CustomerServiceController {
 			if(null == custId) {
 				throw new InvalidRequestException(AppConstants.INVALID_REQUEST);
 			}
-			response = service.getCustomerDetails(custId, response, statusHandler);
+			response = service.getCustomerDetails(custId, token, response, statusHandler);
 			statusHandler.setStatusCode("200");
 			statusHandler.setMessage(AppConstants.SUCCESS);
 			response.setStatusHandler(statusHandler);

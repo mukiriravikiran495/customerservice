@@ -3,18 +3,12 @@ package com.customerservice.entity;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 
@@ -45,6 +39,9 @@ public class CustomerDetails implements Serializable{
 	@Column(name = "CADDRESS1")
 	private String cAddress1;
 	
+	@Column(name = "CADDRESS2")
+	private String cAddress2;
+	
 	@Column(name = "CCITY")
 	private String cCity;
 	
@@ -61,14 +58,16 @@ public class CustomerDetails implements Serializable{
 	private Double cPickupLongitude;
 	
 	@Column(name = "CREATEDAT")
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MMM-yyyy HH:mm:ss.SSS")
+	@JsonProperty("createdAt")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")
 	private LocalDateTime createdAt = LocalDateTime.now();
 	
 	@Column(name = "CREATEDBY")
     private long createdBy;
     
 	@Column(name = "UPDATEDAT")
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MMM-yyyy HH:mm:ss.SSS")
+	@JsonProperty("updatedAt")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")
     private LocalDateTime updatedAt = LocalDateTime.now();
 	
 	@Column(name = "UPDATEDBY")
@@ -76,6 +75,18 @@ public class CustomerDetails implements Serializable{
     
 	@Column(name = "PROFILE_IMAGE")
     private String profile_image;
+	
+	@Column(name = "CPIMAGE")
+	private String cpImage;
+	
+	@Column(name = "CPIMAGE_URL")
+	private String cpImage_url;
+	
+	@Column(name = "CPIMAGE_FILENAME")
+	private String cpImage_filename;
+	
+	@Column(name = "CPIMAGE_FILEEXTENSION")
+	private String cpImage_file_extension;
 
 	public long getCustId() {
 		return custId;
@@ -101,12 +112,52 @@ public class CustomerDetails implements Serializable{
 		this.cLastname = cLastname;
 	}
 
+	public String getcAddress2() {
+		return cAddress2;
+	}
+
+	public void setcAddress2(String cAddress2) {
+		this.cAddress2 = cAddress2;
+	}
+
 	public String getcMobile() {
 		return cMobile;
 	}
 
 	public void setcMobile(String cMobile) {
 		this.cMobile = cMobile;
+	}
+
+	public String getCpImage() {
+		return cpImage;
+	}
+
+	public void setCpImage(String cpImage) {
+		this.cpImage = cpImage;
+	}
+
+	public String getCpImage_url() {
+		return cpImage_url;
+	}
+
+	public void setCpImage_url(String cpImage_url) {
+		this.cpImage_url = cpImage_url;
+	}
+
+	public String getCpImage_filename() {
+		return cpImage_filename;
+	}
+
+	public void setCpImage_filename(String cpImage_filename) {
+		this.cpImage_filename = cpImage_filename;
+	}
+
+	public String getCpImage_file_extension() {
+		return cpImage_file_extension;
+	}
+
+	public void setCpImage_file_extension(String cpImage_file_extension) {
+		this.cpImage_file_extension = cpImage_file_extension;
 	}
 
 	public String getcEmail() {
@@ -207,6 +258,17 @@ public class CustomerDetails implements Serializable{
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	@Override
+	public String toString() {
+		return "CustomerDetails [custId=" + custId + ", cFirstname=" + cFirstname + ", cLastname=" + cLastname
+				+ ", cMobile=" + cMobile + ", cEmail=" + cEmail + ", cAddress1=" + cAddress1 + ", cCity=" + cCity
+				+ ", cState=" + cState + ", cZipcode=" + cZipcode + ", cPickupLattitude=" + cPickupLattitude
+				+ ", cPickupLongitude=" + cPickupLongitude + ", createdAt=" + createdAt + ", createdBy=" + createdBy
+				+ ", updatedAt=" + updatedAt + ", updatedBy=" + updatedBy + ", profile_image=" + profile_image
+				+ ", cpImage=" + cpImage + ", cpImage_url=" + cpImage_url + ", cpImage_filename=" + cpImage_filename
+				+ ", cpImage_file_extension=" + cpImage_file_extension + "]";
 	}
    
 	

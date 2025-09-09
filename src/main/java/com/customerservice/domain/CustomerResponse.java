@@ -4,15 +4,13 @@ import com.customerservice.exceptions.StatusHandler;
 
 public class CustomerResponse {
 
-	private CustomerDetailsDTO detailsDTO;
+	private CustomerDetailsDTO customerDetailsDTO;
 	private StatusHandler statusHandler;
-	
-	
-	public CustomerDetailsDTO getDetailsDTO() {
-		return detailsDTO;
+	public CustomerDetailsDTO getCustomerDetailsDTO() {
+		return customerDetailsDTO;
 	}
-	public void setDetailsDTO(CustomerDetailsDTO detailsDTO) {
-		this.detailsDTO = detailsDTO;
+	public void setCustomerDetailsDTO(CustomerDetailsDTO customerDetailsDTO) {
+		this.customerDetailsDTO = customerDetailsDTO;
 	}
 	public StatusHandler getStatusHandler() {
 		return statusHandler;
@@ -22,9 +20,8 @@ public class CustomerResponse {
 	}
 	@Override
 	public String toString() {
-		return "CustomerResponse [detailsDTO=" + detailsDTO + ", statusHandler=" + statusHandler + "]";
+		return "CustomerResponse [customerDetailsDTO=" + customerDetailsDTO + ", statusHandler=" + statusHandler + "]";
 	}
-	
 	
 	
 }
